@@ -1,25 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.min.css') }}">
     <title>Hello Flask</title>
 </head>
+
 <body>
 
-    <nav class="navbar">
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-            <li><a href="{{ url_for('contact') }}">Contact</a></li>
-            <li><a href="{{ url_for('careers') }}">Careers</a></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Thorin &amp; Company</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('careers') }}">Careers</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    {% block content %}
-    {% endblock %}
+    <!-- Page Header -->
+    <header class="masthead"
+        style="background-image: url('data:image/jpeg;base64,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')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Thorin &amp; Company</h1>
+                        <span class="subheading">Thorin & his company of Dwarves</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Your Website <span id="copyright"></span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
+
+    <script>
+        $("#copyright").text(new Date().getFullYear());
+    </script>
 
 </body>
+
 </html>
